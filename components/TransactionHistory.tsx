@@ -85,7 +85,7 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="animate-pulse">
-              <div className="h-20 rounded-xl bg-surface-2" />
+              <div className="h-20 bg-surface-2" />
             </div>
           ))}
         </div>
@@ -122,12 +122,12 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
             return (
               <div
                 key={tx.id}
-                className="rounded-xl border border-line bg-surface-2 p-4 transition-colors hover:border-line-hi"
+                className="border border-line bg-surface-2 p-4 transition-colors hover:border-line-hi"
               >
                 <div className="mb-3 flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`flex h-9 w-9 items-center justify-center rounded-full ${
+                      className={`flex h-9 w-9 items-center justify-center ${
                         outgoing ? 'bg-coral/15 text-coral' : 'bg-mint/15 text-mint'
                       }`}
                     >

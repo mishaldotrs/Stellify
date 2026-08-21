@@ -20,7 +20,7 @@ export function LoadingSpinner() {
 // Balance card
 export function BalanceCard({ balance, label }: { balance: string; label: string }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface-2 p-6">
+    <div className="border border-line bg-surface-2 p-6">
       <p className="mb-2 text-sm text-muted">{label}</p>
       <p className="font-display text-4xl font-semibold text-ink">{balance}</p>
     </div>
@@ -44,7 +44,7 @@ export function TransactionItem({
   explorerLink: string;
 }) {
   return (
-    <div className="rounded-xl border border-line bg-surface-2 p-4 transition-colors hover:border-line-hi">
+    <div className="border border-line bg-surface-2 p-4 transition-colors hover:border-line-hi">
       <div className="mb-2 flex items-start justify-between">
         <div>
           <p className="font-medium text-ink">{type}</p>
@@ -107,7 +107,7 @@ export function Alert({
   return (
     <div
       role="status"
-      className={`flex items-center justify-between rounded-xl border px-5 py-4 ${styles[type]}`}
+      className={`flex items-center justify-between border px-5 py-4 ${styles[type]}`}
     >
       <span className="text-sm">{message}</span>
       <button onClick={onClose} className="ml-4 text-ink/50 hover:text-ink" aria-label="Dismiss">
@@ -132,7 +132,7 @@ export function Card({
   className?: string;
 }) {
   return (
-    <div className={`rounded-2xl border border-line bg-surface p-6 shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] sm:p-7 ${className}`}>
+    <div className={`border border-line bg-surface p-6 shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] sm:p-7 ${className}`}>
       {(title || action) && (
         <div className="mb-5 flex items-start justify-between gap-4">
           <div>
@@ -180,7 +180,7 @@ export function Input({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className={`w-full rounded-xl border bg-surface-2 px-4 py-3 text-ink placeholder-muted transition-colors focus:outline-none ${
+          className={`w-full border bg-surface-2 px-4 py-3 text-ink placeholder-muted transition-colors focus:outline-none ${
             mono ? 'font-mono text-sm' : ''
           } ${suffix ? 'pr-16' : ''} ${
             error ? 'border-coral/60' : 'border-line focus:border-nova/50'
@@ -226,7 +226,7 @@ export function Button({
       disabled={disabled}
       className={`${variants[variant]} ${
         fullWidth ? 'w-full' : ''
-      } rounded-xl px-6 py-3.5 font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50`}
+      } px-6 py-3.5 font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50`}
     >
       {children}
     </button>
@@ -268,7 +268,7 @@ export function Modal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-void/70 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-2xl border border-line bg-surface shadow-2xl">
+      <div className="w-full max-w-md border border-line bg-surface shadow-2xl">
         <div className="flex items-center justify-between border-b border-line p-6">
           <h3 className="font-display text-xl font-semibold text-ink">{title}</h3>
           <button onClick={onClose} className="text-xl text-muted hover:text-ink" aria-label="Close">

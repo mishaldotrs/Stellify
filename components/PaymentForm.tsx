@@ -109,7 +109,7 @@ export default function PaymentForm({ publicKey, onSuccess }: PaymentFormProps) 
       )}
 
       {txHash && (
-        <div className="mb-4 rounded-xl border border-mint/30 bg-mint/[0.08] p-4">
+        <div className="mb-4 border border-mint/30 bg-mint/[0.08] p-4">
           <div className="flex items-start gap-3">
             <FaCheckCircle className="mt-1 flex-shrink-0 text-mint" />
             <div className="flex-1 overflow-hidden">

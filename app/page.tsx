@@ -10,9 +10,12 @@
 
 import { useState } from 'react';
 import WalletConnection from '@/components/WalletConnection';
+import WalletConnectButton from '@/components/WalletConnectButton';
 import BalanceDisplay from '@/components/BalanceDisplay';
 import PaymentForm from '@/components/PaymentForm';
 import TransactionHistory from '@/components/TransactionHistory';
+import { FaGithub } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const STAR_POSITIONS = [
   { top: '12%', left: '8%', size: 2, delay: '0s' },
@@ -36,7 +39,7 @@ function Logomark() {
 
 function TrajectoryHero() {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-line bg-surface p-8 sm:p-12">
+    <div className="relative overflow-hidden border border-line bg-surface p-8 sm:p-12">
       <div className="starfield">
         {STAR_POSITIONS.map((s, i) => (
           <span
@@ -137,17 +140,15 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="hidden rounded-full border border-gold/30 bg-gold/[0.08] px-3 py-1 text-xs font-medium text-gold-hi sm:inline-block">
+            <span className="hidden border border-gold/30 bg-gold/[0.08] px-3 py-1 text-xs font-medium text-gold-hi sm:inline-block">
               Testnet
             </span>
-            <a
-              href="https://laboratory.stellar.org/#account-creator?network=test"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-ink/60 transition-colors hover:text-ink"
-            >
-              Get testnet XLM
-            </a>
+            <WalletConnectButton
+              publicKey={publicKey}
+              isConnected={isConnected}
+              onConnect={handleConnect}
+              onDisconnect={handleDisconnect}
+            />
           </div>
         </div>
       </header>
@@ -161,7 +162,7 @@ export default function Home() {
         )}
 
         <div className="mb-8">
-          <WalletConnection onConnect={handleConnect} onDisconnect={handleDisconnect} />
+          <WalletConnection publicKey={publicKey} isConnected={isConnected} />
         </div>
 
         {isConnected && publicKey && (
@@ -196,6 +197,10 @@ export default function Home() {
                 n: '03',
                 title: 'Fund the account',
                 copy: 'Use Stellar Laboratory to fund your testnet address for free.',
+                link: {
+                  href: 'https://laboratory.stellar.org/#account-creator?network=test',
+                  label: 'Get testnet XLM →',
+                },
               },
               {
                 n: '04',
@@ -205,11 +210,21 @@ export default function Home() {
             ].map((step) => (
               <div
                 key={step.n}
-                className="rounded-2xl border border-line bg-surface p-5"
+                className="border border-line bg-surface p-5"
               >
                 <p className="mb-3 font-mono text-xs text-nova">{step.n}</p>
                 <h3 className="mb-1.5 font-medium text-ink">{step.title}</h3>
                 <p className="text-sm text-muted">{step.copy}</p>
+                {step.link && (
+                  <a
+                    href={step.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-block text-sm text-nova hover:text-nova-hi"
+                  >
+                    {step.link.label}
+                  </a>
+                )}
               </div>
             ))}
           </div>
@@ -223,6 +238,25 @@ export default function Home() {
           <p className="mt-1 text-xs text-muted/70">
             Running on Stellar Testnet — this app does not move real funds.
           </p>
+          <div className="mt-4 flex items-center justify-center gap-5 text-sm text-ink/60">
+            <a
+              href="https://github.com/mishaldotrs/Stellify"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 transition-colors hover:text-ink"
+            >
+              <FaGithub /> GitHub
+            </a>
+            <span className="text-line">·</span>
+            <a
+              href="https://x.com/mishaldotrs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 transition-colors hover:text-ink"
+            >
+              <FaXTwitter /> Developed by @mishaldotrs
+            </a>
+          </div>
         </div>
       </footer>
     </div>

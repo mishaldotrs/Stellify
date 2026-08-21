@@ -1,8 +1,9 @@
 /**
  * WalletConnection Component
  *
- * Handles wallet connection/disconnection and displays the connected address.
- * All blockchain logic lives in lib/stellar-helper.ts (untouched).
+ * Informational only — the actual connect/disconnect action lives in the
+ * navbar (WalletConnectButton). This just tells the user what to do and,
+ * once connected, shows their address for reference.
  */
 
 'use client';
@@ -10,43 +11,17 @@
 import { useState } from 'react';
 import { stellar } from '@/lib/stellar-helper';
 import { FaWallet, FaCopy, FaCheck } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
 import { Card } from './example-components';
 
 interface WalletConnectionProps {
-  onConnect: (publicKey: string) => void;
-  onDisconnect: () => void;
+  publicKey: string;
+  isConnected: boolean;
 }
 
 const SUPPORTED_WALLETS = ['Freighter', 'xBull', 'Albedo', 'Rabet', 'Lobstr', 'Hana'];
 
-export default function WalletConnection({ onConnect, onDisconnect }: WalletConnectionProps) {
-  const [publicKey, setPublicKey] = useState<string>('');
-  const [isConnected, setIsConnected] = useState(false);
-  const [loading, setLoading] = useState(false);
+export default function WalletConnection({ publicKey, isConnected }: WalletConnectionProps) {
   const [copied, setCopied] = useState(false);
-
-  const handleConnect = async () => {
-    try {
-      setLoading(true);
-      const key = await stellar.connectWallet();
-      setPublicKey(key);
-      setIsConnected(true);
-      onConnect(key);
-    } catch (error: any) {
-      console.error('Connection error:', error);
-      alert(`Couldn't connect a wallet:\n${error.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDisconnect = () => {
-    stellar.disconnect();
-    setPublicKey('');
-    setIsConnected(false);
-    onDisconnect();
-  };
 
   const handleCopyAddress = async () => {
     await navigator.clipboard.writeText(publicKey);
@@ -58,28 +33,14 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
     return (
       <Card eyebrow="Step 1" title="Connect a wallet">
         <p className="mb-6 text-sm text-ink/70">
-          Connect any Stellar wallet to view your testnet balance and send XLM.
+          Use the{' '}
+          <span className="inline-flex items-center gap-1.5 font-medium text-gold-hi">
+            <FaWallet className="text-xs" /> Connect wallet
+          </span>{' '}
+          button in the top-right corner to link a Stellar wallet and start sending XLM.
         </p>
 
-        <button
-          onClick={handleConnect}
-          disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-xl bg-gold px-6 py-4 font-medium text-void transition-colors hover:bg-gold-hi disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {loading ? (
-            <>
-              <div className="h-5 w-5 animate-spin rounded-full border-[3px] border-solid border-void border-r-transparent" />
-              Connecting…
-            </>
-          ) : (
-            <>
-              <FaWallet />
-              Connect wallet
-            </>
-          )}
-        </button>
-
-        <div className="mt-5 rounded-xl border border-line bg-surface-2 p-4">
+        <div className="border border-line bg-surface-2 p-4">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.1em] text-muted">
             Supported wallets
           </p>
@@ -98,23 +59,15 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
 
   return (
     <Card>
-      <div className="mb-4 flex items-start justify-between">
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-mint" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint" />
-          </span>
-          <span className="text-sm text-ink/70">Wallet connected · Testnet</span>
-        </div>
-        <button
-          onClick={handleDisconnect}
-          className="flex items-center gap-2 text-sm text-coral/90 transition-colors hover:text-coral"
-        >
-          <MdLogout /> Disconnect
-        </button>
+      <div className="mb-4 flex items-center gap-2">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-mint" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint" />
+        </span>
+        <span className="text-sm text-ink/70">Wallet connected · Testnet</span>
       </div>
 
-      <div className="rounded-xl border border-line bg-surface-2 p-4">
+      <div className="border border-line bg-surface-2 p-4">
         <p className="mb-2 text-xs text-muted">Your address</p>
         <div className="flex items-center justify-between gap-3">
           <p className="break-all font-mono text-sm text-ink">{publicKey}</p>

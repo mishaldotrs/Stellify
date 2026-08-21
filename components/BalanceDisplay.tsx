@@ -55,8 +55,8 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
     return (
       <Card eyebrow="Balance">
         <div className="animate-pulse">
-          <div className="mb-4 h-16 rounded-xl bg-surface-2" />
-          <div className="h-10 w-1/2 rounded-xl bg-surface-2" />
+          <div className="mb-4 h-16 bg-surface-2" />
+          <div className="h-10 w-1/2 bg-surface-2" />
         </div>
       </Card>
     );
@@ -77,7 +77,7 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
         </button>
       }
     >
-      <div className="rounded-xl border border-line bg-surface-2 p-6">
+      <div className="border border-line bg-surface-2 p-6">
         <div className="flex items-baseline gap-2">
           <p className="font-display text-5xl font-semibold tracking-tight text-ink">
             {formatBalance(balance)}
@@ -93,7 +93,7 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
           {assets.map((asset, index) => (
             <div
               key={index}
-              className="flex items-center justify-between rounded-xl border border-line bg-surface-2 p-4"
+              className="flex items-center justify-between border border-line bg-surface-2 p-4"
             >
               <div>
                 <p className="font-medium text-ink">{asset.code}</p>
@@ -107,7 +107,7 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
         </div>
       )}
 
-      <div className="mt-4 rounded-xl border border-gold/25 bg-gold/[0.06] p-3">
+      <div className="mt-4 border border-gold/25 bg-gold/[0.06] p-3">
         <p className="text-xs text-gold-hi">
           Keep at least 1 XLM in this account — Stellar holds a minimum reserve per account.
         </p>
