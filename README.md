@@ -1,7 +1,15 @@
 # Stellify
 
-A simple XLM payment dApp for the Stellar network — connect a wallet, enter a
-recipient address and an amount, and send. Runs on **Stellar Testnet**.
+**Live demo:** [https://stellify-dapp.vercel.app/](https://stellify-dapp.vercel.app/)
+
+![Stellify screenshot](public/screenshot.png)
+
+## About
+
+Stellify is a minimal payment dApp for the Stellar network. Connect any
+supported Stellar wallet, view your XLM balance, and send payments to any
+address in a few seconds — all on **Stellar Testnet**, so nothing here ever
+touches real funds.
 
 Built with **Bun**, **Next.js 14**, **TypeScript**, **Tailwind CSS**, and the
 **Stellar SDK** + **Stellar Wallets Kit** (supports Freighter, xBull, Albedo,
@@ -47,6 +55,7 @@ stellify/
 │   └── page.tsx          # Dashboard page
 ├── components/
 │   ├── WalletConnection.tsx
+│   ├── WalletConnectButton.tsx
 │   ├── BalanceDisplay.tsx
 │   ├── PaymentForm.tsx        # Core "send XLM" flow
 │   ├── TransactionHistory.tsx
@@ -70,4 +79,8 @@ bun run lint    # lint
 This app is hardcoded to **Stellar Testnet** in `lib/stellar-helper.ts`
 (`new StellarHelper('testnet')`). Do not send real (mainnet) funds to
 addresses shown here.
-# Stellify
+
+## Connect with me
+
+- GitHub: [github.com/mishaldotrs](https://github.com/mishaldotrs)
+- X (Twitter): [x.com/mishaldotrs](https://x.com/mishaldotrs)
